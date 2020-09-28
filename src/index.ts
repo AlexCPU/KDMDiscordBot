@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { Client } from 'discord.js';
 
-import { parseCommandInput, Logger, prepareArgParser, getUrl, escapeRegExp } from './utils';
+import { Logger, getUrl, escapeRegExp } from './utils';
 import { MessageCache, sendAndCache } from './utils/discord';
 
 require('dotenv').config();
