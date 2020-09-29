@@ -2,7 +2,7 @@ import fs from 'fs';
 import { Client } from 'discord.js';
 
 import { Logger, getUrl, escapeRegExp } from './utils';
-import { MessageCache, sendAndCache } from './utils/discord';
+import { MessageCache, sendAndCache, getEmoteOrString, getDieEmoji } from './utils/discord';
 
 require('dotenv').config();
 
@@ -59,10 +59,21 @@ client.on('message', (message) => {
 
 	switch(args[0]){
 		case 'help':
-			sendAndCache(message, 'This is my help message');
+			sendAndCache(message, 'This is my help message, it should explain all the commands, but it isn\' written yet');
 			break;
 		case 'roll':
-			sendAndCache(message, message.member.displayName + ' rolled a ' + Math.ceil(Math.random() * 10));
+			sendAndCache(message, message.member.displayName + ' rolled a ');
+			switch(args[1]){
+				case 'hit':
+					sendAndCache(message,getDieEmoji(message,Math.ceil(Math.random()*6),2))
+					break;
+				case 'd10':
+				default:
+					sendAndCache(message,getDieEmoji(message,Math.ceil(Math.random()*10),1))
+					break;
+
+			}
+			//message.delete()
 			break;
 	}  
 });

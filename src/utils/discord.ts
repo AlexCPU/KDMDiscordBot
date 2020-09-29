@@ -11,6 +11,80 @@ export function getEmoteOrString(message: Message, emojiName: string, defaultStr
 	return defaultString;
 }
 
+export function getDieEmoji(message: Message, value: number, dieType: number): string {
+	if (dieType===1) {
+		switch(value)
+		{
+			case 1:
+				return getEmoteOrString(message, 'e_1', '1');
+				break;
+			
+			case 2:
+				return getEmoteOrString(message, 'e_2', '2');
+				break;
+			
+			case 3:
+				return getEmoteOrString(message, 'e_3', '3');
+				break;
+			
+			case 4:
+				return getEmoteOrString(message, 'e_4', '4');
+				break;
+			
+			case 5:
+				return getEmoteOrString(message, 'e_5', '5');
+				break;
+
+			case 6:
+				return getEmoteOrString(message, 'e_6', '6');
+				break;
+			
+			case 7:
+				return getEmoteOrString(message, 'e_7', '7');
+				break;
+			
+			case 8:
+				return getEmoteOrString(message, 'e_8', '8');
+				break;
+			
+			case 9:
+				return getEmoteOrString(message, 'e_9', '9');
+				break;
+			
+			case 10:
+				return getEmoteOrString(message, 'e_lantern', '10');
+				break;			
+		}
+	}
+	else if (dieType===2) {
+		switch(value)
+		{
+			case 1:
+				return getEmoteOrString(message, 'hit_waist', 'Waist');
+				break;
+			
+			case 2:
+				return getEmoteOrString(message, 'hit_legs', 'Legs');
+				break;
+			
+			case 3:
+				return getEmoteOrString(message, 'hit_head', 'Head');
+				break;
+			
+			case 4:
+				return getEmoteOrString(message, 'hit_arms', 'Arms');
+				break;
+			
+			case 5:
+			case 6:
+				return getEmoteOrString(message, 'hit_body', 'Body');
+				break;
+
+		}
+	}
+	return "unknown DieType";
+}
+
 export let MessageCache = new NodeCache({ stdTTL: 600 });
 
 export async function sendAndCache(message: Message, content: any, asReply: boolean = false) {
