@@ -47,3 +47,23 @@ export function getUrl(message: Message): string | undefined {
 export function escapeRegExp(strings: string[]) {
 	return strings.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')); // $& means the whole matched string
 }
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+export function normalizePort(val:any) {
+	var port = parseInt(val, 10);
+  
+	if (isNaN(port)) {
+	  // named pipe
+	  return val;
+	}
+  
+	if (port >= 0) {
+	  // port number
+	  return port;
+	}
+  
+	return false;
+}
