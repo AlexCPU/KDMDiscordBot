@@ -23,6 +23,7 @@
     "morgan": "~1.9.1",
     "node-cache": "^5.1.1",
     "pug": "^3.0.0",
+    "shuffle": "^0.2.2",
     "socket.io": "^2.3.0",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.5.0"
