@@ -14,12 +14,14 @@ var app = require('./express');
 var debug = require('debug')('kdmdiscordbot:server');
 var http = require('http');
 
+
 // Get port from environment and store in Express.
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 // Create HTTP server.
 var server = http.createServer(app);
+var io = require('socket.io')(server);
 
 // Listen on provided port, on all network interfaces.
 server.listen(port, function () {
@@ -55,10 +57,21 @@ export function onError(error: NodeJS.ErrnoException) {
         break;
       default:
         throw error;
-    }
-  }
+	}
+}
 
-
+// Event listener for Socket.IO "connection" event
+io.on('connection', (socket: SocketIOClient.Socket) => {
+	console.log('a user connected');
+	//io.emit()
+	socket.on('disconnect', () => {
+		console.log('user disconnected');
+	});
+	socket.on('chat message', (msg: String) => {
+		console.log('message: ' + msg);
+		io.emit('chat message', msg);
+	});
+});
 
 /**
  * startup discord client
@@ -123,11 +136,15 @@ client.on('message', (message) => {
 			sendAndCache(message, message.member.displayName + ' rolled a ');
 			switch(args[1]){
 				case 'hit':
-					sendAndCache(message,getDieEmoji(message,Math.ceil(Math.random()*6),2))
+					var DieRoll = Math.ceil(Math.random()*6);
+					sendAndCache(message,getDieEmoji(message,DieRoll,2));
+					io.emit('chat message', message.member.displayName + ' rolled a ' + DieRoll)
 					break;
 				case 'd10':
 				default:
-					sendAndCache(message,getDieEmoji(message,Math.ceil(Math.random()*10),1))
+					var DieRoll = Math.ceil(Math.random()*10)
+					sendAndCache(message,getDieEmoji(message,DieRoll,1))
+					io.emit('chat message', message.member.displayName + ' rolled a ' + DieRoll)
 					break;
 
 			}
