@@ -1,0 +1,15 @@
+var Shuffle = require('shuffle');
+var goFish = [{color: 'red', number: 1}, {color: 'blue', number: 2}, {color: 'green', number: 3}, {color: 'yellow', number: 4}, {color: 'white', number: 5}, {color: 'black', number: 6}];
+var deck = Shuffle.shuffle({deck: goFish});
+console.log(deck);
+deck.putOnTopOfDeck([{color: 'orange', number: 7}]);
+console.log(deck);
+deck.shuffle();
+console.log(deck);
+var draw=deck.draw();
+console.log(draw);
+console.log(deck);
+deck.shuffle();
+console.log(deck);
+deck.reset();
+console.log(deck);
